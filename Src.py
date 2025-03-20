@@ -14,20 +14,7 @@ import sys
 
 
 
-# funcs
-def mv(source, destination):
-
-    try:
-        shutil.move(source, destination)
-        print(f"Moved {source} → {destination} ") 
-    except FileNotFoundError:
-        print(Fore.RED + f"Error: '{source}' not found." + Fore.RESET)
-    except PermissionError:
-        print(
-            Fore.RED
-            + f"Error: Permission denied for '{source}' or '{destination}'"
-            + Fore.RESET
-        )
+# func
 
 
 def cp(source, destination):
@@ -54,8 +41,39 @@ def cp(source, destination):
         )
 
 
+def mv(source, destination):
+
+    try:
+        shutil.move(source, destination)
+        print(f"Moved {source} → {destination} ") 
+    except FileNotFoundError:
+        print(Fore.RED + f"Error: '{source}' not found." + Fore.RESET)
+    except PermissionError:
+        print(
+            Fore.RED
+            + f"Error: Permission denied for '{source}' or '{destination}'"
+            + Fore.RESET
+        )
+
+
+def rmdir(directory):
+    try:
+        if os.path.isdir(directory):
+            # Only empty directories
+            if len(os.listdir(directory)) > 0:
+                print(Fore.YELLOW + "Directory not empty! Use 'delete' instead." + Fore.RESET)
+                return
+            os.rmdir(directory)
+            print(f"Removed empty directory: {directory}")
+        else:
+            print(Fore.RED + "Source is not a directory" + Fore.RESET)
+    except FileNotFoundError:
+        print(Fore.RED + f"Error: '{directory}' not found." + Fore.RESET)
+    except PermissionError:
+        print(Fore.RED + f"Error: Permission denied for '{directory}'" + Fore.RESET)
+
 def rm(file_or_directory):
-    # My safer rm - warns first for directories
+    # rm - warns first for directories
     try:
         if os.path.isfile(file_or_directory):
             os.remove(file_or_directory)
@@ -82,26 +100,9 @@ def rm(file_or_directory):
         print(Fore.RED + f"Error: Permission denied for '{file_or_directory}'" + Fore.RESET)
 
 
-def rmdir(directory):
-    try:
-        if os.path.isdir(directory):
-            # Only empty directories
-            if len(os.listdir(directory)) > 0:
-                print(Fore.YELLOW + "Directory not empty! Use 'delete' instead." + Fore.RESET)
-                return
-            os.rmdir(directory)
-            print(f"Removed empty directory: {directory}")
-        else:
-            print(Fore.RED + "Source is not a directory" + Fore.RESET)
-    except FileNotFoundError:
-        print(Fore.RED + f"Error: '{directory}' not found." + Fore.RESET)
-    except PermissionError:
-        print(Fore.RED + f"Error: Permission denied for '{directory}'" + Fore.RESET)
-
-
 def get_system_info():
-    # My system info grabber - pretty basic but works
-    MY_MULTIPLIER = 1024 * 1024  # MB conversion
+    # system info grabber - pretty basic but works
+    MY_MULTIPLIER = 1024 * 1024 
     
     comp_info = {}
     comp_info["OS"] = platform.system()
@@ -201,7 +202,7 @@ def display(file_path):
 
 
 def parse_cmd(input_str):
-    # My custom command parser - handles quotes and escapes
+    # custom command parser - handles quotes and escapes
     # E.g. copy "my file.txt" "new file.txt"
     parts = []
     current_part = ""
