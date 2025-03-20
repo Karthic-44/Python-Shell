@@ -3,12 +3,12 @@
 The Python-Shell provides a command-line interface for executing shell commands.
 This shell can be used to navigate directories, move/copy files , create/delete files etc. 
 
-#Features
+# Features
 
-File Operations
-Directory Navigation
-Provides System Info
-Color-Coded
+* File Operations
+* Directory Navigation
+* Provides System Info
+* Color-Coded
 
 # Usage
 
