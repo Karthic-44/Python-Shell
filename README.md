@@ -8,7 +8,7 @@ This shell can be used to navigate directories, move/copy files , create/delete 
 * ```os```
 * ```subprocess```
 * ```coloroma```
-* ```paathlib```
+* ```pathlib```
 * ```datetime```
 * ```platform```
 * ```psutil```
